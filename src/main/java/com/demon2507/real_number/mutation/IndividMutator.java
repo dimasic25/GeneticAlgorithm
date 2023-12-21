@@ -2,7 +2,6 @@ package com.demon2507.real_number.mutation;
 
 import com.demon2507.real_number.model.Individ;
 
-import java.security.SecureRandom;
 import java.util.Random;
 
 import static com.demon2507.Configuration.getConfig;
@@ -24,7 +23,7 @@ public class IndividMutator {
     }
 
     private void mutateIndivid(Individ individ) {
-        Random random = new SecureRandom();
+        Random random = new Random();
         int numberOfGenes = individ.getGeneticMaterial().length;
 
         if (random.nextDouble() < MUTATION_RATE) {

@@ -1,5 +1,6 @@
 package com.demon2507.code_gray;
 
+import com.demon2507.Configuration;
 import com.demon2507.code_gray.crossingover.TwoPointCrossoverStrategy;
 import com.demon2507.code_gray.model.GenerationPool;
 import com.demon2507.code_gray.model.Individ;
@@ -15,6 +16,7 @@ import com.demon2507.common.GeneticAlgorithmStatistics;
 import com.demon2507.common.Pair;
 import com.demon2507.common.Point3D;
 import com.demon2507.common.StabilizedGeneticAlgorithmStatistics;
+import com.demon2507.report.StatisticsExporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,8 +58,8 @@ public class GeneticAlgorithm {
 
             generationNumber++;
 
-            Individ bestIndivid = generationPool.getMostFitIndivid();
-            log.info("step {} most fit individ: {}, fit={}", generationNumber, bestIndivid, bestIndivid.getFitness());
+//            Individ bestIndivid = generationPool.getMostFitIndivid();
+//            log.info("step {} most fit individ: {}, fit={}", generationNumber, bestIndivid, bestIndivid.getFitness());
         }
 
         this.bestIndivid = generationPool.getMostFitIndivid();
@@ -123,26 +125,26 @@ public class GeneticAlgorithm {
         return new GeneticAlgorithmStatistics(generationNumber, getErrorRate(bestIndivid));
     }
 
-    public StabilizedGeneticAlgorithmStatistics solveStabilized() {
+    public StabilizedGeneticAlgorithmStatistics solveStabilized(Configuration config) {
         var statistics = new ArrayList<GeneticAlgorithmStatistics>();
 
         for (int i = 0; i < getConfig().getNumberOfRuns(); i++) {
-            log.info("\nRUN#{}", i + 1);
+//            log.info("\nRUN#{}", i + 1);
             var geneticAlgorithm = new GeneticAlgorithm();
             geneticAlgorithm.solve();
             statistics.add(geneticAlgorithm.getStatistics());
         }
 
-        log.info("=====Algo statistics=====");
+//        log.info("=====Algo statistics=====");
         int averageGenerations = (int) calculateAverage(statistics, GeneticAlgorithmStatistics::generationNumberCount);
         double averageErrorRate = calculateAverage(statistics, GeneticAlgorithmStatistics::errorRate);
         int errorRuns = (int) statistics.stream().filter(stat -> stat.errorRate() > 0.5).count();
-        log.info("Average number of generation to find optimum: {}", averageGenerations);
-        log.info("Mean error rate: {}", averageErrorRate);
-        log.info("Error runs: {}", errorRuns);
-        return new StabilizedGeneticAlgorithmStatistics(averageGenerations, averageErrorRate, errorRuns);
-//        new StatisticsExporter(config, "position_code")
+//        log.info("Average number of generation to find optimum: {}", averageGenerations);
+//        log.info("Mean error rate: {}", averageErrorRate);
+//        log.info("Error runs: {}", errorRuns);
+//        new StatisticsExporter(config, "code_gray")
 //                .export(averageGenerations, averageErrorRate);
+        return new StabilizedGeneticAlgorithmStatistics(averageGenerations, averageErrorRate, errorRuns);
     }
 
     private static double calculateAverage(List<GeneticAlgorithmStatistics> statistics, ToDoubleFunction<? super GeneticAlgorithmStatistics> statisticsParamGetter) {

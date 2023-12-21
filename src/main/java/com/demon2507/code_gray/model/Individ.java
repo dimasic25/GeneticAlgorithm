@@ -2,7 +2,6 @@ package com.demon2507.code_gray.model;
 
 import com.demon2507.code_gray.util.DiscreteIntervalConverter;
 
-import java.security.SecureRandom;
 import java.util.Objects;
 import java.util.Random;
 
@@ -10,7 +9,7 @@ import static com.demon2507.Configuration.getConfig;
 import static com.demon2507.common.Functions.deJong3;
 
 public class Individ implements Comparable<Individ> {
-    private final Random random = new SecureRandom();
+    private final Random random = new Random();
     private static final DiscreteIntervalConverter xIntervalConverter = new DiscreteIntervalConverter(
             getConfig().getxInterval(), getConfig().getPrecision());
     private static final DiscreteIntervalConverter yIntervalConverter = new DiscreteIntervalConverter(

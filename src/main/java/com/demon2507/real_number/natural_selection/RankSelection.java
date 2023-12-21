@@ -3,7 +3,6 @@ package com.demon2507.real_number.natural_selection;
 import com.demon2507.real_number.model.GenerationPool;
 import com.demon2507.real_number.model.Individ;
 
-import java.security.SecureRandom;
 import java.util.*;
 
 public class RankSelection implements NaturalSelectionStrategy {
@@ -22,7 +21,7 @@ public class RankSelection implements NaturalSelectionStrategy {
         double totalRank = 0.5 * populationSize * (populationSize + 1);
 
         List<Individ> selectedIndividuals = new ArrayList<>();
-        Random random = new SecureRandom();
+        Random random = new Random();
 
         while (selectedIndividuals.size() < populationSize) {
             double randomValue = random.nextDouble();

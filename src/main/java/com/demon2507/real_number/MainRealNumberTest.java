@@ -16,7 +16,7 @@ public class MainRealNumberTest {
     public static void main(String[] args) {
         var statistics = new ArrayList<GeneticAlgorithmStatistics>();
         //только в этом месте в приложении может меняться конфигурация. Во всех остальных она только читается
-        var config = Configuration.INSTANCE;
+        var config = Configuration.getConfig();
 
         for (int i = 0; i < config.getNumberOfRuns(); i++) {
             log.info("\nRUN#{}", i + 1);

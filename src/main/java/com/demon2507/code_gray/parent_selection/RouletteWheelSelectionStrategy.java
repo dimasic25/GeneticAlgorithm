@@ -4,7 +4,6 @@ import com.demon2507.code_gray.model.GenerationPool;
 import com.demon2507.code_gray.model.Individ;
 import com.demon2507.code_gray.model.Parents;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +34,7 @@ public class RouletteWheelSelectionStrategy implements ParentSelectionStrategy {
         }
 
         // Select two parents using roulette wheel selection
-        Random random = new SecureRandom();
+        Random random = new Random();
         Individ parent1 = spinRouletteWheel(rouletteWheel, random.nextDouble());
         Individ parent2 = spinRouletteWheel(rouletteWheel, random.nextDouble());
 

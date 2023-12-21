@@ -1,5 +1,6 @@
 package com.demon2507.report;
 
+import com.demon2507.common.NaturalSelectionStrategyType;
 import com.demon2507.common.StabilizedGeneticAlgorithmStatistics;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -52,18 +53,20 @@ public class StatisticsExporter {
 
     public void exportStabilizedResults(List<Configuration> configurations,
                                         List<StabilizedGeneticAlgorithmStatistics> realStatistics,
-                                        List<StabilizedGeneticAlgorithmStatistics> positionCodeStatistics) {
+                                        List<StabilizedGeneticAlgorithmStatistics> grayStatistics) {
         exportStabilized("real-statistics.csv", configurations, realStatistics);
-        exportStabilized("position-statistics.csv", configurations, positionCodeStatistics);
+        exportStabilized("gray-statistics.csv", configurations, grayStatistics);
     }
 
     private void exportStabilized(String filename,
                                   List<Configuration> configurations,
                                   List<StabilizedGeneticAlgorithmStatistics> stabilizedStatistics) {
         try (var writer = new FileWriter(filename)) {
-            // Write header
-            writer.append("Метод отбора в новую популяцию,Метод отбора родителей,Вероятность мутации,Величина популяции," +
-                    "Среднее кол-во поколений, Средняя величина ошибки, Количество ошибочных запусков\n");
+            // Write header with all configuration properties
+            writer.append("Method of Natural Selection,Method of Parent Selection,Mutation Rate,Population Size," +
+                    "Recombination Rate,Perturbation Range,Truncation Threshold," +
+                    "Average Generations,Average Error Rate,Error Runs\n");
+
             // Write body
             for (int i = 0; i < configurations.size(); i++) {
                 Configuration config = configurations.get(i);
@@ -72,13 +75,13 @@ public class StatisticsExporter {
                 writer.append(config.getNaturalSelectionStrategy().toString()).append(",");
                 writer.append(config.getParentsSelectionStrategy().toString()).append(",");
                 writer.append(Double.toString(config.getMutationRate())).append(",");
-                writer.append(Double.toString(config.getIndividualsInPopulationCount())).append(",");
-
-                writer.append(String.valueOf(stats.averageGenerations())).append(",");
-                writer.append(String.valueOf(stats.averageErrorRate())).append(",");
-                writer.append(String.valueOf(stats.errorRuns())).append(",");
-
-                writer.append("\n");
+                writer.append(Integer.toString(config.getIndividualsInPopulationCount())).append(",");
+                writer.append(Double.toString(config.getRecombinationRate())).append(",");
+                writer.append(Double.toString(config.getPerturbationRange())).append(",");
+                writer.append(config.getNaturalSelectionStrategy() == NaturalSelectionStrategyType.TRUNCATION ? Double.toString(config.getTruncationThreshold()) : "N/A").append(",");
+                writer.append(Integer.toString(stats.averageGenerations())).append(",");
+                writer.append(Double.toString(stats.averageErrorRate())).append(",");
+                writer.append(Integer.toString(stats.errorRuns())).append("\n");
             }
 
             log.info("CSV file has been created successfully!");

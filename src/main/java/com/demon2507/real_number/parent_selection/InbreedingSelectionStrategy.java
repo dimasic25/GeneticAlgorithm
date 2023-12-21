@@ -4,7 +4,6 @@ import com.demon2507.real_number.model.GenerationPool;
 import com.demon2507.real_number.model.Individ;
 import com.demon2507.real_number.model.Parents;
 
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -20,7 +19,7 @@ public class InbreedingSelectionStrategy implements ParentSelectionStrategy {
     public Parents selectParents() {
         List<Individ> individuals = generationPool.getIndividuals();
 
-        Random random = new SecureRandom();
+        Random random = new Random();
         Individ parent = individuals.get(random.nextInt(individuals.size()));
 
         Individ parent2 = findClosestNeighbor(parent, individuals);

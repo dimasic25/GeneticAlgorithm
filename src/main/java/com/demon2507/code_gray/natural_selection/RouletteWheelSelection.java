@@ -3,7 +3,6 @@ package com.demon2507.code_gray.natural_selection;
 import com.demon2507.code_gray.model.GenerationPool;
 import com.demon2507.code_gray.model.Individ;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public class RouletteWheelSelection implements NaturalSelectionStrategy {
         double totalFitness = individuals.stream().mapToDouble(Individ::getFitness).sum();
 
         List<Individ> selectedIndividuals = new ArrayList<>();
-        Random random = new SecureRandom();
+        Random random = new Random();
 
         while (selectedIndividuals.size() < generationPool.getSize()) {
             double randomValue = random.nextDouble();

@@ -21,15 +21,6 @@ public class DiscreteIntervalConverter {
         return doubleInterval.start() + position * step;
     }
 
-    // Convert real number to position number (index)
-    public int realToPosition(double real) {
-        if (real < doubleInterval.start() || real > doubleInterval.end()) {
-            throw new IllegalArgumentException("Real number is out of bounds");
-        }
-
-        return (int) Math.floor((real - doubleInterval.start()) / step);
-    }
-
     // Get the number of steps in the discrete interval
     public int getNumberOfSteps() {
         return (int) Math.floor((doubleInterval.end() - doubleInterval.start()) / step) + 1;

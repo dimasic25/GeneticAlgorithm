@@ -14,9 +14,9 @@ public class Configuration {
     // Доля рекомбинаций в зависимости от от общего количества популяции, которая должна размножиться в одном поколении
     private double recombinationRate = 0.7;
     // Максимальное количество поколений
-    private int maxGenerationsCount = 50;
+    private int maxGenerationsCount = 40;
     // Порог конвергентности, нужен для определения схожести поколения и преждевременной остановки алгоритма
-    private double convergentThreshold = 0.0001;
+    private double convergentThreshold = 0.000_001;
     // Вероятность мутации
     private double mutationRate = 0.01;
     // Шаг мутации в алгоритмах с вещественными генами
@@ -34,7 +34,7 @@ public class Configuration {
     // Доля усеченных особей от всей популяции. Используется в алгоритме селекции методом усечения.
     private double truncationThreshold = 0.5;
     // Количество прогонов одного алгоритма
-    private int numberOfRuns = 2;
+    private int numberOfRuns = 50;
     // величина ошибки, которая будет считаться за неудачный запуск алгоритма
     private double errorThreshold = 0.5;
 
@@ -234,6 +234,28 @@ public class Configuration {
         return Objects.hash(dimensions, individualsInPopulationCount, recombinationRate, maxGenerationsCount,
                 convergentThreshold, mutationRate, perturbationRange, xInterval, yInterval, precision, intermediateDConstant,
                 truncationThreshold, numberOfRuns, errorThreshold, parentsSelectionStrategy, naturalSelectionStrategy);
+    }
+
+    @Override
+    public String toString() {
+        return "Configuration{" +
+                "dimensions=" + dimensions +
+                ", individualsInPopulationCount=" + individualsInPopulationCount +
+                ", recombinationRate=" + recombinationRate +
+                ", maxGenerationsCount=" + maxGenerationsCount +
+                ", convergentThreshold=" + convergentThreshold +
+                ", mutationRate=" + mutationRate +
+                ", perturbationRange=" + perturbationRange +
+                ", xInterval=" + xInterval +
+                ", yInterval=" + yInterval +
+                ", precision=" + precision +
+                ", intermediateDConstant=" + intermediateDConstant +
+                ", truncationThreshold=" + truncationThreshold +
+                ", numberOfRuns=" + numberOfRuns +
+                ", errorThreshold=" + errorThreshold +
+                ", parentsSelectionStrategy=" + parentsSelectionStrategy +
+                ", naturalSelectionStrategy=" + naturalSelectionStrategy +
+                '}';
     }
 
 }
